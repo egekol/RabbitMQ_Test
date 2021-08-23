@@ -21,7 +21,7 @@ namespace Rabbit_Test
                 using (var channel = connection.CreateModel())
                 {
                     channel.QueueDeclare(
-                        queue:"HelloTheFirst",
+                        queue: "HelloTheFirst",
                         false, //fiziksel olarak ya da bellekte sakla.
                         false, //Bulunduğu queue bağlantısı kapandıktan sonra silinir.
                         false,//Kuyrukta consumer kalmadığında silinir.
@@ -31,11 +31,16 @@ namespace Rabbit_Test
 
                     var body = Encoding.UTF8.GetBytes(message);
 
-                    channel.BasicPublish("","hello", null, body);
+                    channel.BasicPublish("", "hello", null, body);
                     channel.BasicPublish("", "hello", null, Encoding.UTF8.GetBytes("TestOneTwo"));
                     Console.WriteLine("[x] Sent {0}", message);
                 }
+
+                
             }
+
+            var conn = factory.CreateConnection();
+            var chan = conn.CreateModel();
 
             Console.WriteLine(" Press [enter] to exit.");
             Console.ReadLine();
